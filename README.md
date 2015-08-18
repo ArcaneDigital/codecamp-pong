@@ -13,3 +13,9 @@ To launch a Python server for your game, run this command from your project dire
 ```
 python -m SimpleHTTPServer 9999
 ```
+
+## TODO
+- [ ] Options for different paddles
+- [ ] Options for different balls
+- [ ] Options for different backgrounds
+- [ ] Score tracking
