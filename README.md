@@ -1,1 +1,2 @@
-# codecamp-pong
+# Pong
+## Arcane Code Camp
