@@ -41,13 +41,13 @@ function createPaddle (x,y) {
 }
 
 function createBall (x,y) {
-    var tmpBall = game.add.sprite(x,y, 'ball');
-    game.physics.arcade.enable(tmpBall);
-    tmpBall.anchor.setTo(0.5,0.5);
-    tmpBall.body.collideWorldBounds = true;
-    tmpBall.body.bounce.setTo(1, 1);
+    var ball = game.add.sprite(x,y, 'ball');
+    game.physics.arcade.enable(ball);
+    ball.anchor.setTo(0.5,0.5);
+    ball.body.collideWorldBounds = true;
+    ball.body.bounce.setTo(1, 1);
 
-    return tmpBall;
+    return ball;
 }
 
 function setBall () {
