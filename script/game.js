@@ -17,8 +17,8 @@ function preload () {
 
 function create () {
     game.stage.backgroundColor = '#990000';
-    playerPaddle = createPaddle(game.world.centerX, 624);
-    computerPaddle = createPaddle(game.world.centerX, 16);
+    playerPaddle = createPaddle(game.world.centerX, game.height - 50);
+    computerPaddle = createPaddle(game.world.centerX, 30);
     ball = createBall(game.world.centerX, game.world.centerY);
     game.input.onDown.add(setBall, this);
 }
