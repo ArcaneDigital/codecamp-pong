@@ -88,16 +88,8 @@ function processBallAndPaddleCollisions () {
 }
 
 function ballHitsPaddle (_ball, _paddle) {
-    var diff = 0;
-
-    if (_ball.x < _paddle.x) {
-        diff = _paddle.x - _ball.x;
-    } else if (_ball.x > _paddle.x) {
-        diff = _ball.x - _paddle.x;
-        _ball.body.velocity.x = (10*diff);
-    } else {
-        _ball.body.velocity.x = 2 + Math.random() * 8;
-    }
+    var diff = _ball.x - _paddle.x;
+    _ball.body.velocity.x = (10 * diff);
 }
 
 function checkGoal () {
