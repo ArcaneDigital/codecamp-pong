@@ -4,25 +4,25 @@ var game = new Phaser.Game(480,640, Phaser.AUTO, 'game', {
     update: update
 });
 
-var playerBet, computerBet, ball;
-var computerBetSpeed = 190;
+var playerPaddle, computerPaddle, ball;
+var computerPaddleSpeed = 190;
 var ballSpeed = 300;
 var ballReleased = false;
-var playerBetHalfWidth;
+var playerPaddleHalfWidth;
 
 function preload () {
     game.physics.startSystem(Phaser.Physics.ARCADE);
-    game.load.image('bet', '/image/sprite/paddle/paddle.png');
+    game.load.image('paddle', '/image/sprite/paddle/paddle.png');
     game.load.image('ball', '/image/sprite/ball/ball.png');
     game.load.image('background', '/image/starfield.png');
 }
 
 function create () {
     game.add.tileSprite(0,0,480,640,'background');
-    playerBet = createBet(game.world.centerX, 624);
-    computerBet = createBet(game.world.centerX, 16);
+    playerPaddle = createPaddle(game.world.centerX, 624);
+    computerPaddle = createPaddle(game.world.centerX, 16);
     ball = createBall(game.world.centerX, game.world.centerY);
-    playerBetHalfWidth = playerBet.width / 2;
+    playerPaddleHalfWidth = playerPaddle.width / 2;
     game.input.onDown.add(setBall, this);
 }
 
@@ -33,15 +33,15 @@ function update () {
     checkGoal();
 }
 
-function createBet (x,y) {
-    var bet = game.add.sprite(x,y, 'bet');
-    game.physics.arcade.enable(bet);
-    bet.anchor.setTo(0.5,0.5);
-    bet.body.collideWorldBounds = true;
-    bet.body.bounce.setTo(1,1);
-    bet.body.immovable = true;
+function createPaddle (x,y) {
+    var paddle = game.add.sprite(x,y, 'paddle');
+    game.physics.arcade.enable(paddle);
+    paddle.anchor.setTo(0.5,0.5);
+    paddle.body.collideWorldBounds = true;
+    paddle.body.bounce.setTo(1,1);
+    paddle.body.immovable = true;
 
-    return bet;
+    return paddle;
 }
 
 function createBall (x,y) {
@@ -69,37 +69,37 @@ function setBall () {
 }
 
 function controlPlayerPaddle (x) {
-    playerBet.x = x;
+    playerPaddle.x = x;
 
-    if (playerBet.x < playerBetHalfWidth) {
-        playerBet.x = playerBetHalfWidth;
-    } else if (playerBet.x > game.width - playerBetHalfWidth) {
-        playerBet.x = game.width - playerBetHalfWidth;
+    if (playerPaddle.x < playerPaddleHalfWidth) {
+        playerPaddle.x = playerPaddleHalfWidth;
+    } else if (playerPaddle.x > game.width - playerPaddleHalfWidth) {
+        playerPaddle.x = game.width - playerPaddleHalfWidth;
     }
 }
 
 function controlComputerPaddle () {
-    if (computerBet.x - ball.x < -15) {
-        computerBet.body.velocity.x = computerBetSpeed;
-    } else if(computerBet.x - ball.x > 15) {
-        computerBet.body.velocity.x = -computerBetSpeed;
+    if (computerPaddle.x - ball.x < -15) {
+        computerPaddle.body.velocity.x = computerPaddleSpeed;
+    } else if(computerPaddle.x - ball.x > 15) {
+        computerPaddle.body.velocity.x = -computerPaddleSpeed;
     } else {
-        computerBet.body.velocity.x = 0;
+        computerPaddle.body.velocity.x = 0;
     }
 }
 
 function processBallAndPaddleCollisions () {
-    game.physics.arcade.collide(ball, playerBet, ballHitsBet, null, this);
-    game.physics.arcade.collide(ball, computerBet, ballHitsBet, null, this);
+    game.physics.arcade.collide(ball, playerPaddle, ballHitsPaddle, null, this);
+    game.physics.arcade.collide(ball, computerPaddle, ballHitsPaddle, null, this);
 }
 
-function ballHitsBet (_ball, _bet) {
+function ballHitsPaddle (_ball, _paddle) {
     var diff = 0;
 
-    if (_ball.x < _bet.x) {
-        diff = _bet.x - _ball.x;
-    } else if (_ball.x > _bet.x) {
-        diff = _ball.x - _bet.x;
+    if (_ball.x < _paddle.x) {
+        diff = _paddle.x - _ball.x;
+    } else if (_ball.x > _paddle.x) {
+        diff = _ball.x - _paddle.x;
         _ball.body.velocity.x = (10*diff);
     } else {
         _ball.body.velocity.x = 2 + Math.random() * 8;
