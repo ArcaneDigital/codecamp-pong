@@ -1,4 +1,4 @@
-var game = new Phaser.Game(480,640, Phaser.AUTO, 'game', {
+var game = new Phaser.Game(480, 640, Phaser.AUTO, 'game', {
     preload: preload,
     create: create,
     update: update
@@ -8,7 +8,6 @@ var playerPaddle, computerPaddle, ball;
 var computerPaddleSpeed = 190;
 var ballSpeed = 300;
 var ballReleased = false;
-var playerPaddleHalfWidth;
 
 function preload () {
     game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -22,7 +21,6 @@ function create () {
     playerPaddle = createPaddle(game.world.centerX, 624);
     computerPaddle = createPaddle(game.world.centerX, 16);
     ball = createBall(game.world.centerX, game.world.centerY);
-    playerPaddleHalfWidth = playerPaddle.width / 2;
     game.input.onDown.add(setBall, this);
 }
 
@@ -36,7 +34,6 @@ function update () {
 function createPaddle (x,y) {
     var paddle = game.add.sprite(x,y, 'paddle');
     game.physics.arcade.enable(paddle);
-    paddle.anchor.setTo(0.5,0.5);
     paddle.body.collideWorldBounds = true;
     paddle.body.bounce.setTo(1,1);
     paddle.body.immovable = true;
@@ -71,10 +68,10 @@ function setBall () {
 function controlPlayerPaddle (x) {
     playerPaddle.x = x;
 
-    if (playerPaddle.x < playerPaddleHalfWidth) {
-        playerPaddle.x = playerPaddleHalfWidth;
-    } else if (playerPaddle.x > game.width - playerPaddleHalfWidth) {
-        playerPaddle.x = game.width - playerPaddleHalfWidth;
+    if (playerPaddle.x < 0) {
+        playerPaddle.x = 0;
+    } else if (playerPaddle.x + playerPaddle.width > game.width) {
+        playerPaddle.x = game.width - playerPaddle.width;
     }
 }
 
