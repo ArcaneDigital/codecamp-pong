@@ -17,9 +17,9 @@ function preload () {
 
 function create () {
     game.stage.backgroundColor = '#990000';
-    playerPaddle = createPaddle(game.world.centerX, game.height - 50);
-    computerPaddle = createPaddle(game.world.centerX, 30);
-    ball = createBall(game.world.centerX, game.world.centerY);
+    playerPaddle = createPaddle(game.width / 2, game.height - 50);
+    computerPaddle = createPaddle(game.width / 2, 30);
+    ball = createBall(game.width / 2, game.height / 2);
     game.input.onDown.add(setBall, this);
 }
 
@@ -30,20 +30,18 @@ function update () {
     checkGoal();
 }
 
-function createPaddle (x,y) {
-    var paddle = game.add.sprite(x,y, 'paddle');
+function createPaddle (x, y) {
+    var paddle = game.add.sprite(x, y, 'paddle');
     game.physics.arcade.enable(paddle);
-    paddle.body.collideWorldBounds = true;
-    paddle.body.bounce.setTo(1,1);
+    paddle.body.bounce.setTo(1, 1);
     paddle.body.immovable = true;
 
     return paddle;
 }
 
-function createBall (x,y) {
+function createBall (x, y) {
     var ball = game.add.sprite(x,y, 'ball');
     game.physics.arcade.enable(ball);
-    ball.anchor.setTo(0.5,0.5);
     ball.body.collideWorldBounds = true;
     ball.body.bounce.setTo(1, 1);
 
@@ -52,8 +50,8 @@ function createBall (x,y) {
 
 function setBall () {
     if (ballReleased) {
-        ball.x = game.world.centerX;
-        ball.y = game.world.centerY;
+        ball.x = game.width / 2;
+        ball.y = game.height / 2;
         ball.body.velocity.x = 0;
         ball.body.velocity.y = 0;
         ballReleased = false;
