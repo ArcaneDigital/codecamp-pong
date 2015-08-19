@@ -13,11 +13,10 @@ function preload () {
     game.physics.startSystem(Phaser.Physics.ARCADE);
     game.load.image('paddle', '/image/sprite/paddle/paddle.png');
     game.load.image('ball', '/image/sprite/ball/ball.png');
-    game.load.image('background', '/image/starfield.png');
 }
 
 function create () {
-    game.add.tileSprite(0,0,480,640,'background');
+    game.stage.backgroundColor = '#990000';
     playerPaddle = createPaddle(game.world.centerX, 624);
     computerPaddle = createPaddle(game.world.centerX, 16);
     ball = createBall(game.world.centerX, game.world.centerY);
