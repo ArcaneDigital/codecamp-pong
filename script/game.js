@@ -93,9 +93,9 @@ function ballHitsPaddle (_ball, _paddle) {
 }
 
 function checkGoal () {
-    if (ball.y < 13) {
+    if (ball.y < 15) {
         setBall();
-    } else if (ball.y > 629) {
+    } else if (ball.y > game.height - 15) {
         setBall();
     }
 }
