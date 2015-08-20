@@ -18,4 +18,4 @@ python -m SimpleHTTPServer 9999
 - [ ] Options for different paddles
 - [ ] Options for different balls
 - [ ] Options for different backgrounds
-- [ ] Score tracking
+- [x] Score tracking
