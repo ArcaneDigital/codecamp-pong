@@ -8,6 +8,9 @@ var playerPaddle, computerPaddle, ball;
 var computerPaddleSpeed = 190;
 var ballSpeed = 300;
 var ballReleased = false;
+var playerScore = 0;
+var computerScore = 0;
+var scoreText;
 
 function preload () {
     game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -21,6 +24,7 @@ function create () {
     computerPaddle = createPaddle(game.width / 2, 30);
     ball = createBall(game.width / 2, game.height / 2);
     game.input.onDown.add(setBall, this);
+    createScore();
 }
 
 function update () {
@@ -28,6 +32,7 @@ function update () {
     controlComputerPaddle();
     processBallAndPaddleCollisions();
     checkGoal();
+    updateScore();
 }
 
 function createPaddle (x, y) {
@@ -94,8 +99,46 @@ function ballHitsPaddle (_ball, _paddle) {
 
 function checkGoal () {
     if (ball.y < 15) {
+        increasePlayerScore();
         setBall();
     } else if (ball.y > game.height - 15) {
+        increaseComputerScore();
         setBall();
+    }
+}
+
+function createScore () {
+    scoreText = game.add.text(
+        game.width / 2,
+        game.height / 2,
+        '',
+        {
+            fill: '#ffffff'
+        }
+    );
+    scoreText.anchor.set(0.5);
+}
+
+function updateScore () {
+    scoreText.setText(playerScore + ' / ' + computerScore);
+}
+
+function increasePlayerScore () {
+    playerScore++;
+
+    if (playerScore >= 10) {
+        alert('You win!');
+        playerScore = 0;
+        computerScore = 0;
+    }
+}
+
+function increaseComputerScore () {
+    computerScore++;
+
+    if (computerScore >= 10) {
+        alert('You lose!');
+        computerScore = 0;
+        playerScore = 0;
     }
 }
