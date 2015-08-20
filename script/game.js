@@ -99,10 +99,10 @@ function ballHitsPaddle (_ball, _paddle) {
 
 function checkGoal () {
     if (ball.y < 15) {
-        playerScore++;
+        increasePlayerScore();
         setBall();
     } else if (ball.y > game.height - 15) {
-        computerScore++;
+        increaseComputerScore();
         setBall();
     }
 }
@@ -113,7 +113,7 @@ function createScore () {
         game.height / 2,
         '',
         {
-            fill: '#ff0044'
+            fill: '#ffffff'
         }
     );
     scoreText.anchor.set(0.5);
@@ -121,4 +121,24 @@ function createScore () {
 
 function updateScore () {
     scoreText.setText(playerScore + ' / ' + computerScore);
+}
+
+function increasePlayerScore () {
+    playerScore++;
+
+    if (playerScore >= 10) {
+        alert('You win!');
+        playerScore = 0;
+        computerScore = 0;
+    }
+}
+
+function increaseComputerScore () {
+    computerScore++;
+
+    if (computerScore >= 10) {
+        alert('You lose!');
+        computerScore = 0;
+        playerScore = 0;
+    }
 }
